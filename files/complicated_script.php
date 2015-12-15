@@ -2,16 +2,13 @@
 <?php
 function fibonacci($n)
 {
-  if ($n == 0) {
-    return 0;
-  }
-  elseif ($n == 1) {
-    return 1;
+  if ($n <= 1) {
+    return $n;
   }
   else {
-    return fibonacci($n-1) + fibonacci($n-2);
+    return fibonacci($n - 1) + fibonacci($n - 2);
   }
 }
 
-$valueToCompute = 3;
+$valueToCompute = 10;
 echo fibonacci($valueToCompute);
