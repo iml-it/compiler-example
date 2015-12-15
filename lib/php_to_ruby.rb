@@ -13,8 +13,6 @@ module PhpToRuby
       File.open(path_to_output, 'w') do |f|
         f << compiler.visit(ast)
       end
-    rescue RLTK::LexingError, RLTK::NotInLanguage
-      puts 'Invalid PHP file'
     end
   end
 
