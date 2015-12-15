@@ -28,7 +28,7 @@ module PhpToRuby
     rule(/echo/) { :ECHO }
 
     rule(/\$[A-Za-z]+/) {|n| [:VARIABLE, n[1..-1]] }
-    rule(/\w+/) {|n| [:IDENTIFIER, n]}
+    rule(/[A-Za-z]+/) {|n| [:IDENTIFIER, n]}
     rule(/\d+/) {|t| [:NUMBER, t.to_i]}
   end
 end
