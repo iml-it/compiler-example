@@ -7,5 +7,5 @@ require 'bundler/setup' # Set up gems listed in the Gemfile.
 require 'php_to_ruby'
 
 task :compile do
-  PhpToRuby.translate(File.join('files', 'script.php'), File.join('files', 'script.rb'))
+  PhpToRuby.translate('files/script.php', 'files/script.rb')
 end

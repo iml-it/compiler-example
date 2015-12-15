@@ -6,7 +6,7 @@ module PhpToRuby
     rule(/=/) { :ASSIGN }
     rule(/;/) { :SEMICOLON }
 
-    rule(/\$[A-Za-z]+/) { :VARIABLE }
+    rule(/\$[A-Za-z]+/) {|n| [:VARIABLE, n[1..-1]] }
 
     rule(/\d+/) {|t| [:NUMBER, t.to_i]}
   end
