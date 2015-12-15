@@ -1,4 +1,4 @@
 .bundle
 vendor/bundle
-files/script.rb
+files/*.rb
 php.tbl

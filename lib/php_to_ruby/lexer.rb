@@ -2,6 +2,9 @@ require 'rltk/lexer'
 
 module PhpToRuby
   class Lexer < RLTK::Lexer
+    # php definition
+    rule(/\<\?php/)
+
     rule(/\s/) # Ignore whitespace
     rule(/=/) { :ASSIGN }
     rule(/;/) { :SEMICOLON }
