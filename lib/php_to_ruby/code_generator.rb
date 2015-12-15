@@ -5,7 +5,13 @@ module PhpToRuby
   class CodeGenerator
     include Filigree::Visitor
 
-    on Assign do |node|
+    on Program do |node|
+      node.statements.map do |statement|
+        visit statement
+      end.join("\n")
+    end
+
+    on Assignment do |node|
       "#{visit node.left} = #{visit node.right}"
     end
 

@@ -2,25 +2,44 @@ require 'rltk/parser'
 require 'rltk/ast'
 
 module PhpToRuby
-  class Variable < RLTK::ASTNode
+  class Expression < RLTK::ASTNode
+  end
+  class Statement < RLTK::ASTNode
+  end
+
+  class Variable < Expression
     value :name, String
   end
-  class Number < RLTK::ASTNode
+  class Number < Expression
     value :value, Integer
   end
 
-  class Assign < RLTK::ASTNode
+  class Assignment < Statement
     child :left, Variable
-    child :right, Number
+    child :right, Expression
+  end
+
+  class Program < RLTK::ASTNode
+    child :statements, [Statement]
   end
 
   class Parser < RLTK::Parser
+    production(:program) do
+      clause('statement*') {|statements| Program.new(statements)}
+    end
+
     production(:statement) do
-      clause('declaration SEMICOLON') {|d, _| d}
+      clause('variable_assignment SEMICOLON') {|d, _| d}
     end
-    production(:declaration) do
-      clause('VARIABLE ASSIGN NUMBER') {|var, _, number| Assign.new(Variable.new(var), Number.new(number)) }
+
+    production(:variable_assignment) do
+      clause('VARIABLE ASSIGN expression') {|var, _, e| Assignment.new(Variable.new(var), e) }
     end
+
+    production(:expression) do
+      clause('NUMBER') {|n| Number.new(n)}
+    end
+
     finalize use: 'php.tbl'
   end
 end
