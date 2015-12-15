@@ -8,11 +8,22 @@ module PhpToRuby
     begin
       input = File.read(path_to_input)
       tokens = PhpToRuby::Lexer.lex(input)
+      puts '-' * 20
+      puts 'Lexer was successful!'
+      puts
+
       ast = PhpToRuby::Parser.parse(tokens)
+      puts '-' * 20
+      puts 'Parser was successful!'
+      puts
+
       compiler = PhpToRuby::CodeGenerator.new
       File.open(path_to_output, 'w') do |f|
         f << compiler.visit(ast)
       end
+      puts '-' * 20
+      puts 'Code generation was successful!'
+      puts
     end
   end
 
