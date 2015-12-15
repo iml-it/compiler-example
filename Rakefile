@@ -6,6 +6,12 @@ require 'bundler/setup' # Set up gems listed in the Gemfile.
 
 require 'php_to_ruby'
 
+desc 'compiles a very simple PHP script to Ruby'
+task :compile_simple do
+  PhpToRuby.translate('files/simple_script.php', 'files/simple_script.rb')
+end
+
+desc 'compiles a much more complicated PHP script to Ruby'
 task :compile do
-  PhpToRuby.translate('files/script.php', 'files/script.rb')
+  PhpToRuby.translate('files/complicated_script.php', 'files/complicated_script.rb')
 end
