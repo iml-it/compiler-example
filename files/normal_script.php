@@ -1,4 +1,5 @@
 <?php
+// duplicates a number
 function duplicate($n)
 {
   return $n * 2;
