@@ -11,7 +11,12 @@ task :compile_simple do
   PhpToRuby.translate('files/simple_script.php', 'files/simple_script.rb')
 end
 
-desc 'compiles a much more complicated PHP script to Ruby'
+desc 'compiles a normal PHP script to Ruby'
 task :compile do
+  PhpToRuby.translate('files/normal_script.php', 'files/normal_script.rb')
+end
+
+desc 'compiles a much more complicated PHP script to Ruby'
+task :compile_complicated do
   PhpToRuby.translate('files/complicated_script.php', 'files/complicated_script.rb')
 end
