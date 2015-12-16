@@ -17,9 +17,9 @@ module PhpToRuby
       puts 'Parser was successful!'
       puts
 
-      compiler = PhpToRuby::CodeGenerator.new
+      code_generator = PhpToRuby::CodeGenerator.new
       File.open(path_to_output, 'w') do |f|
-        f << compiler.visit(ast)
+        f << code_generator.visit(ast)
       end
       puts '-' * 20
       puts 'Code generation was successful!'
