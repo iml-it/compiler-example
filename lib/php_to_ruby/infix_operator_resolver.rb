@@ -11,7 +11,12 @@ module PhpToRuby
       }
 
       # return the optimized node
-      node
+      if node.left.is_a?(Number) && node.right.is_a?(Number)
+        Number.new(eval("#{node.left.value} #{node.name} #{node.right.value}"))
+      else
+        node
+      end
     end
+
   end
 end
