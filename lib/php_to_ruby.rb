@@ -2,10 +2,11 @@ require 'php_to_ruby/lexer'
 require 'php_to_ruby/parser'
 require 'php_to_ruby/code_generator'
 require 'php_to_ruby/infix_operator_resolver'
+require 'php_to_ruby/constant_resolver'
 
 module PhpToRuby
 
-  OPTIMIZERS = [InfixOperatorResolver]
+  OPTIMIZERS = [ConstantResolver, InfixOperatorResolver]
 
   def self.translate(path_to_input, path_to_output)
     begin

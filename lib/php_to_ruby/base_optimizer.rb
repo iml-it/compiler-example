@@ -8,7 +8,7 @@ module PhpToRuby
       # optimize children
       node.children(Hash).each do |child_name, child_node|
         if child_node.is_a?(Array)
-          mapped_children = child_node.map {|child| visit(child)}
+          mapped_children = child_node.map {|child| visit(child)}.compact
           node.children = {child_name => mapped_children}
         else
           node.children = {child_name => visit(child_node)}
