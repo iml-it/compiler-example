@@ -10,8 +10,13 @@ module PhpToRuby
   class Variable < Expression
     value :name, String
   end
+
   class Number < Expression
     value :value, Integer
+  end
+
+  class Constant < Expression
+    value :name, String
   end
 
   class Call < Expression
@@ -27,6 +32,11 @@ module PhpToRuby
 
   class Assignment < Statement
     child :left, Variable
+    child :right, Expression
+  end
+
+  class ConstantDefinition < Statement
+    child :left, Constant
     child :right, Expression
   end
 
@@ -59,6 +69,7 @@ module PhpToRuby
       end
       clause('RETURN expression SEMICOLON') {|_, e, _| Return.new(e)}
       clause('ECHO expression SEMICOLON') {|_, e, _| Echo.new(e)}
+      clause('DEFINE L_BRACKET CONSTANT COLON NUMBER R_BRACKET SEMICOLON') {|_, _, name, _, number, _, _| ConstantDefinition.new(Constant.new(name), Number.new(number))}
       clause('assignment SEMICOLON') {|a, _| a}
     end
 
@@ -68,11 +79,13 @@ module PhpToRuby
 
     production(:expression) do
       clause('VARIABLE') {|name| Variable.new(name)}
+      clause('CONSTANT') {|name| Constant.new(name)}
       clause('NUMBER') {|n| Number.new(n)}
 
       clause('IDENTIFIER L_BRACKET expression R_BRACKET') {|name, _, e, _| Call.new(name, e)}
 
       clause('expression TIMES expression') {|e1, _, e2| InfixOperator.new('*', e1, e2)}
+      clause('expression PLUS expression') {|e1, _, e2| InfixOperator.new('+', e1, e2)}
     end
 
     finalize use: 'php.tbl'

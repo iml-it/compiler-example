@@ -28,6 +28,10 @@ module PhpToRuby
       "return #{visit node.expression}"
     end
 
+    on ConstantDefinition do |node|
+      "#{visit node.left} = #{visit node.right}"
+    end
+
     on Assignment do |node|
       "#{visit node.left} = #{visit node.right}"
     end
@@ -41,6 +45,10 @@ module PhpToRuby
     end
 
     on Variable do |node|
+      node.name
+    end
+
+    on Constant do |node|
       node.name
     end
 
