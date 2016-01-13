@@ -16,6 +16,11 @@ task :compile do
   PhpToRuby.translate('files/normal_script.php', 'files/normal_script.rb')
 end
 
+desc 'compiles a optimizable PHP script to Ruby'
+task :compile_optimizable do
+  PhpToRuby.translate('files/optimizable_script.php', 'files/optimizable_script.rb')
+end
+
 desc 'compiles a much more complicated PHP script to Ruby'
 task :compile_complicated do
   PhpToRuby.translate('files/complicated_script.php', 'files/complicated_script.rb')
